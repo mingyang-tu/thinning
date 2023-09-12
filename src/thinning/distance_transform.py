@@ -1,9 +1,22 @@
 import numpy as np
-import cv2
+from numpy.typing import NDArray
 
 
-def inner_contour(binary):      # input / output : np.uint8
-    kernel = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], dtype=np.uint8)
-    erosion = cv2.erode(binary, kernel, iterations=1)
-    # 0: background, 1: contour, 2: inner
-    return binary + erosion
+def four_distance_transform(binary: NDArray[np.uint8]):
+    ROW, COL = binary.shape
+    binary_copy = binary.copy()
+
+    for i in range(1, ROW):
+        for j in range(1, COL):
+            if binary_copy[i, j] != 0:
+                binary_copy[i, j] = min(binary_copy[i, j-1], binary_copy[i-1, j]) + 1
+
+    for i in range(ROW-2, -1, -1):
+        for j in range(COL-2, -1, -1):
+            if binary_copy[i, j] != 0:
+                binary_copy[i, j] = min(
+                    min(binary_copy[i, j+1], binary_copy[i+1, j]) + 1,
+                    binary_copy[i, j]
+                )
+
+    return binary_copy
