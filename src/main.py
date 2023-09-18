@@ -18,13 +18,19 @@ if __name__ == "__main__":
     image = cv2.imread(f"./data/1/database/base_1_1_1.bmp").astype(np.float64)
     binary = thresholding(bgr2gray(image))
 
-    # ab = ArcelliBaja(binary)
-    # output = ab.run()
-    output = k3m(binary)
+    ab = ArcelliBaja(binary)
+    out_ab = ab.run()
+    out_k3m = k3m(binary)
 
     plt.figure()
     plt.imshow(binary, cmap="gray")
+    plt.title("Original")
 
     plt.figure()
-    plt.imshow(output, cmap="gray")
+    plt.imshow(out_ab, cmap="gray")
+    plt.title("Arcelli Baja")
+
+    plt.figure()
+    plt.imshow(out_k3m, cmap="gray")
+    plt.title("K3M")
     plt.show()
