@@ -32,6 +32,7 @@ ONEPIXEL = [3, 6, 7, 12, 14, 15, 24, 28, 30, 31, 48, 56,
             224, 225, 227, 231, 239, 240, 241, 243, 247, 248,
             249, 251, 252, 253, 254]
 
+
 def k3m(binary: NDArray[np.uint8]):
     output = np.pad(binary, 1, mode="constant", constant_values=0)
     ROW, COL = output.shape

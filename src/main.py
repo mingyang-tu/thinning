@@ -15,7 +15,7 @@ def thresholding(image, threshold=220):
 
 
 if __name__ == "__main__":
-    image = cv2.imread(f"./data/1/database/base_1_1_1.bmp").astype(np.float64)
+    image = cv2.imread("./data/text.png").astype(np.float64)
     binary = thresholding(bgr2gray(image))
 
     ab = ArcelliBaja(binary)
