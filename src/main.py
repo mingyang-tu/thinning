@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-from thinning import ArcelliBaja, k3m
+from thinning import ArcelliBaja, k3m, zhang_suen
 
 
 def bgr2gray(image):
@@ -21,6 +21,7 @@ if __name__ == "__main__":
     ab = ArcelliBaja(binary)
     out_ab = ab.run()
     out_k3m = k3m(binary)
+    out_zs = zhang_suen(binary)
 
     plt.figure()
     plt.imshow(binary, cmap="gray")
@@ -33,4 +34,8 @@ if __name__ == "__main__":
     plt.figure()
     plt.imshow(out_k3m, cmap="gray")
     plt.title("K3M")
+
+    plt.figure()
+    plt.imshow(out_zs, cmap="gray")
+    plt.title("Zhang Suen")
     plt.show()
