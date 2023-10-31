@@ -40,26 +40,23 @@ def k3m(binary: NDArray[np.uint8]):
     while True:
         change = False
 
-        borders = np.isin(
-            correlate2d(output, WINDOW, mode='same'),
-            LOOKUP[0]
-        ) & output.astype(np.bool_)
+        borders = np.isin(correlate2d(output, WINDOW, mode="same"), LOOKUP[0]) & output.astype(np.bool_)
 
         for phase in range(1, 6):
-            for i in range(1, ROW-1):
-                for j in range(1, COL-1):
+            for i in range(1, ROW - 1):
+                for j in range(1, COL - 1):
                     if borders[i, j]:
-                        weight = np.sum(WINDOW * output[i-1:i+2, j-1:j+2])
+                        weight = np.sum(WINDOW * output[i - 1 : i + 2, j - 1 : j + 2])
                         if weight in LOOKUP[phase]:
                             output[i, j] = 0
                             change = True
         if not change:
             break
 
-    for i in range(1, ROW-1):
-        for j in range(1, COL-1):
+    for i in range(1, ROW - 1):
+        for j in range(1, COL - 1):
             if output[i, j] > 0:
-                weight = np.sum(WINDOW * output[i-1:i+2, j-1:j+2])
+                weight = np.sum(WINDOW * output[i - 1 : i + 2, j - 1 : j + 2])
                 if weight in ONEPIXEL:
                     output[i, j] = 0
 

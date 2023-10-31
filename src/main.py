@@ -6,7 +6,7 @@ from thinning import ArcelliBaja, k3m, zhang_suen
 
 
 def bgr2gray(image):
-    cvt_mat = np.array([19/256, 183/256, 54/256], dtype=np.float64)
+    cvt_mat = np.array([19 / 256, 183 / 256, 54 / 256], dtype=np.float64)
     return image.dot(cvt_mat)
 
 
